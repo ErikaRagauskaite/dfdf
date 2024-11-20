@@ -12,9 +12,9 @@ const TodoList = () => {
   };
 
   const toggleTaskCompletion = (index) => {
-    const updatedTasks = tasks.map((task, i) => {
-      i === index ? { ...task, completed: !task.completed } : task;
-    });
+    const updatedTasks = tasks.map((task, i) =>
+      i === index ? { ...task, completed: !task.completed } : task
+    );
     setTasks(updatedTasks);
   };
 
@@ -26,18 +26,27 @@ const TodoList = () => {
   return (
     <div className="todo-list">
       <h2>To-Do List</h2>
-      <input
-        type="text"
-        value={newTask}
-        onChange={(e) => setNewTask(e.target.value)}
-        placeholder="New task"
-      />
-      <button onClick={addTask}>Add</button>
+      <div className="input-container">
+        <input
+          type="text"
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+        />
+        <i className="ri-add-circle-line" onClick={addTask}></i>
+      </div>
       <ul>
         {tasks.map((task, index) => (
           <li key={index} className={task.completed ? "completed" : ""}>
+            <input
+              type="checkbox"
+              checked={task.completed}
+              onChange={() => toggleTaskCompletion(index)}
+            />
             <span onClick={() => toggleTaskCompletion(index)}>{task.text}</span>
-            <button onClick={() => removeTask(index)}>Remove</button>
+            <i
+              className="ri-close-circle-line"
+              onClick={() => removeTask(index)}
+            ></i>
           </li>
         ))}
       </ul>
